@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  name: 'card-ui',
   props: ["card"]
 };
 </script>

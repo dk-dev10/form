@@ -3,36 +3,24 @@
     <span class="label" :class="{ required }">
       {{ name }}
     </span>
-    <input
-      type="text"
-      :id="name"
-      class="input"
-      :placeholder="placeholder"
-      :class="{ inputError: error }"
-    />
+    <input v-if="!textarea" :name="name" type="text" :id="name" class="input" :placeholder="placeholder"
+      :class="{ inputError: error }" />
+    <textarea v-if="textarea" :name="name" type="text" :id="name" class="input textarea" :placeholder="placeholder"
+      :class="{ inputError: error }"></textarea>
     <span v-if="error" class="error">{{ error }}</span>
   </div>
-  <Button v-on:click="logg" text="Добавить товар" />
 </template>
 
 <script>
-import Button from "@/components/Button";
 export default {
-  name: "Input",
-  components: {
-    Button
-  },
+  name: "input-ui",
   props: {
     name: String,
     placeholder: String,
     required: Boolean,
-    error: String
+    error: String,
+    textarea: Boolean
   },
-  methods: {
-    logg() {
-      console.log(this.required);
-    }
-  }
 };
 </script>
 
@@ -42,11 +30,12 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   text-align: start;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 
   position: relative;
 }
+
 .label {
   position: relative;
   font-weight: 400;
@@ -65,9 +54,10 @@ export default {
     border-radius: 50%;
     position: absolute;
     right: 0px;
-    left: 110%;
+    left: 102%;
   }
 }
+
 .error {
   position: absolute;
   top: 110%;
@@ -77,6 +67,7 @@ export default {
   letter-spacing: -0.02em;
   color: #FF8484;
 }
+
 .input {
   border: none;
   background: #FFFEFB;
@@ -99,5 +90,14 @@ export default {
       border-color: #FF8484;
     }
   }
+}
+
+.textarea {
+  resize: none;
+  height: 110px;
+}
+
+::placeholder {
+  color: #B4B4B4;
 }
 </style>

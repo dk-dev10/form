@@ -1,10 +1,11 @@
 <template>
-  <button class="button" :disabled="disabled">{{ text }}</button>
+  <button class="button" :class="disabled" :disabled="disabled">{{ text }}</button>
 </template>
 
 <script>
 export default {
-  props: ["text", "disabled"]
+  name: 'button-ui',
+  props: ["text", "disabled"],
 };
 </script>
 
@@ -22,5 +23,10 @@ export default {
   line-height: 15px;
   cursor: pointer;
   max-width: 300px;
+
+  &.disabled {
+    color: #B4B4B4;
+    background: #EEEEEE;
+  }
 }
 </style>

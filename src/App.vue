@@ -1,12 +1,11 @@
 <template>
-  <div>App</div>
-  <hr />
-  <br />
+  <div class="container">
+    <Form />
+  </div>
 </template>
 
 <script>
-import Cards from "@/components/Cards";
-import Dropwdown from "@/components/Dropwdown";
+import Form from '@/components/Form'
 export default {
   name: "App",
   data() {
@@ -34,8 +33,7 @@ export default {
     };
   },
   components: {
-    Cards,
-    Dropwdown
+    Form
   }
 };
 </script>
@@ -46,17 +44,17 @@ export default {
   padding: 0;
   box-sizing: border-box;
   outline: none;
+  font-family: 'Source Sans Pro', sans-serif;
 }
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #FFFEFB;
+}
+
 .container {
-  width: 90%;
-  margin: 0 auto;
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 100%;
+  padding: 32px;
 }
 </style>
