@@ -16,14 +16,14 @@
 
 <script>
 export default {
-  name: 'card-ui',
+  name: 'Card-ui',
   props: ["card"]
 };
 </script>
 
 <style lang='scss' >
 .card {
-  width: 50%;
+  width: 31%;
   max-width: 332px;
   margin-bottom: 16px;
   position: relative;

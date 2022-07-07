@@ -2,16 +2,17 @@
   <div class="drop" :class="{ active }" v-on:click="isActive">
     <span>{{ text }}</span>
     <img src="@/assets/arrow.png" alt="" />
+    <ul class="dropList" :class="{ dropListActive: active }">
+      <li v-for="sel of data" :key="sel" v-on:click="handleSelect(sel)">
+        {{ sel }}
+      </li>
+    </ul>
   </div>
-  <ul class="dropList" :class="{ dropListActive: active }">
-    <li v-for="sel of data" :key="sel" v-on:click="handleSelect(sel)">
-      {{ sel }}
-    </li>
-  </ul>
 </template>
 
 <script>
 export default {
+  name: 'dropdown-ui',
   data() {
     return {
       active: false,
@@ -25,7 +26,7 @@ export default {
     },
     handleSelect(item) {
       this.text = item;
-      this.active = false;
+      // this.active = false;
     }
   }
 };
@@ -38,10 +39,12 @@ export default {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   max-width: 250px;
+  width: 200px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   img {
     margin-left: 5px;
@@ -55,6 +58,9 @@ export default {
   }
 
   &List {
+    position: absolute;
+    top: 100%;
+    z-index: 999;
     margin-top: 10px;
     background: #FFFEFB;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
