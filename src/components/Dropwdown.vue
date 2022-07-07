@@ -1,0 +1,86 @@
+<template>
+  <div class="drop" :class="{ active }" v-on:click="isActive">
+    <span>{{ text }}</span>
+    <img src="@/assets/arrow.png" alt="" />
+  </div>
+  <ul class="dropList" :class="{ dropListActive: active }">
+    <li v-for="sel of data" :key="sel" v-on:click="handleSelect(sel)">
+      {{ sel }}
+    </li>
+  </ul>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      active: false,
+      text: "По умолчанию",
+      data: ["По цене min", "По цене max", "По наименованию"]
+    };
+  },
+  methods: {
+    isActive() {
+      this.active = !this.active;
+    },
+    handleSelect(item) {
+      this.text = item;
+      this.active = false;
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.drop {
+  padding: 10px 16px 11px;
+  background: #FFFEFB;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  max-width: 250px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    margin-left: 5px;
+    transition: transform 0.2s ease;
+  }
+
+  &.active {
+    img {
+      transform: rotate(-180deg);
+    }
+  }
+
+  &List {
+    margin-top: 10px;
+    background: #FFFEFB;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    list-style: none;
+    max-width: 300px;
+    text-align: start;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+
+    &Active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    li {
+      padding: 10px 16px 11px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #eee;
+      }
+    }
+  }
+}
+</style>
