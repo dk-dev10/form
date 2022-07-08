@@ -6,9 +6,9 @@
     <div class="cardInfo">
       <h4>{{ card.title }}</h4>
       <p class="description">{{ card.description }}</p>
-      <p class="price">{{ card.price }} <span>руб.</span></p>
+      <p class="price">{{ `${card.price}`.replace(/\B(?=(?:\d{3})*$)/g, ' ')}} <span>руб.</span></p>
     </div>
-    <button class="remove">
+    <button class="remove" @click="() => onRemove(card.id)">
       <img src="@/assets/delete.png" alt="remove" />
     </button>
   </div>
@@ -17,7 +17,12 @@
 <script>
 export default {
   name: 'Card-ui',
-  props: ["card"]
+  props: ["card"],
+  methods: {
+    onRemove(id) {
+      this.$emit('onRemove', id)
+    }
+  }
 };
 </script>
 

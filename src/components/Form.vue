@@ -3,10 +3,10 @@
     <h1>Добавление товара</h1>
     <div class="formContainer">
       <form @submit.prevent="logg">
-        <Input class="form-input" name="Наименование товара" placeholder="Введите наименование товара" required />
-        <Input class="form-input" name="Описание товара" placeholder="Введите описание товара" textarea />
-        <Input class="form-input" name="Ссылка на изображение товара" placeholder="Введите ссылку" required />
-        <Input class="form-input" name="Цена товара" placeholder="Введите цену" required />
+        <Input class="form-input" :value="product" v-model="product" name="product" title="Наименование товара" placeholder="Введите наименование товара" required />
+        <Input class="form-input" :value="description" v-model="description" name="description" title="Описание товара" placeholder="Введите описание товара" textarea />
+        <Input class="form-input" :value="link" v-model="link" name="link" title="Ссылка на изображение товара" placeholder="Введите ссылку" required />
+        <Input class="form-input" :value="price" v-model="price" name="price" title="Цена товара" placeholder="Введите цену" required />
         <Button text="Добавить товар" />
       </form>
     </div>
@@ -22,11 +22,25 @@ export default {
     Input,
     Button,
   },
-  methods: {
-    logg(e) {
-      e.preventDefault();
-      console.log('ss');
+  data() {
+    return {
+      product: '',
+      description: '',
+      link: '',
+      price: '',
     }
+  },
+  methods: {
+    logg() {
+      const {price, product, description, link} = this;
+      const newCard = {
+          id: Date.now(),
+          title: product,
+          description,price,
+          picture: link,
+        }
+      this.$emit('addCard', newCard)
+    },
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <Form class="form" />
-    <Cards :cards="cards" />
+    <Form class="form" @addCard="addCard" />
+    <Cards  :cards="cards" @onRemove="onRemove" />
   </div>
 </template>
 
@@ -13,60 +13,6 @@ export default {
   data() {
     return {
       cards: [
-        {
-          id: 1,
-          title: "Title",
-          description:
-            "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
-          price: 8999,
-          picture:
-            "https://d28128taegpyri.cloudfront.net/92f8c882-4569-4e77-9bec-27d3ade09f0d_960.jpg"
-        },
-        {
-          id: 1,
-          title: "Title",
-          description:
-            "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
-          price: 8999,
-          picture:
-            "https://d28128taegpyri.cloudfront.net/92f8c882-4569-4e77-9bec-27d3ade09f0d_960.jpg"
-        },
-        {
-          id: 1,
-          title: "Title",
-          description:
-            "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
-          price: 8999,
-          picture:
-            "https://d28128taegpyri.cloudfront.net/92f8c882-4569-4e77-9bec-27d3ade09f0d_960.jpg"
-        },
-        {
-          id: 1,
-          title: "Title",
-          description:
-            "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
-          price: 8999,
-          picture:
-            "https://d28128taegpyri.cloudfront.net/92f8c882-4569-4e77-9bec-27d3ade09f0d_960.jpg"
-        },
-        {
-          id: 1,
-          title: "Title",
-          description:
-            "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
-          price: 8999,
-          picture:
-            "https://d28128taegpyri.cloudfront.net/92f8c882-4569-4e77-9bec-27d3ade09f0d_960.jpg"
-        },
-        {
-          id: 1,
-          title: "Title",
-          description:
-            "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
-          price: 8999,
-          picture:
-            "https://d28128taegpyri.cloudfront.net/92f8c882-4569-4e77-9bec-27d3ade09f0d_960.jpg"
-        },
         {
           id: 1,
           title: "Title",
@@ -91,6 +37,14 @@ export default {
   components: {
     Form,
     Cards,
+  },
+  methods: {
+    addCard(item) {
+     this.cards.push(item) 
+    },
+    onRemove(i) {
+      this.cards = this.cards.filter(({id}) => id !== i )
+    }
   }
 };
 </script>
@@ -117,5 +71,13 @@ body {
 }
 .container .form {
   width: 25%;
+}
+
+.empty {
+  text-align: center;
+  margin: 5% auto;
+  font-size: 25px;
+  font-weight: 800;
+  color: #b5b5b5;
 }
 </style>

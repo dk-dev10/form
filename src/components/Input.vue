@@ -1,12 +1,13 @@
 <template>
   <div class="inputContainer">
     <span class="label" :class="{ required }">
-      {{ name }}
+      {{ title }}
     </span>
-    <input v-if="!textarea" :name="name" type="text" :id="name" class="input" :placeholder="placeholder"
-      :class="{ inputError: error }" />
-    <textarea v-if="textarea" :name="name" type="text" :id="name" class="input textarea" :placeholder="placeholder"
-      :class="{ inputError: error }"></textarea>
+    <!-- eslint-disable-next-line -->
+    <input v-if="!textarea" :value="value" @input="$emit(name, $event.target.value)" :name="name" type="text" :id="name"
+      class="input" :placeholder="placeholder" :class="{ inputError: error }" />
+    <textarea v-if="textarea" :value="value" @input="$emit(name, $event.target.value)" :name="name" type="text"
+      :id="name" class="input textarea" :placeholder="placeholder" :class="{ inputError: error }"></textarea>
     <span v-if="error" class="error">{{ error }}</span>
   </div>
 </template>
@@ -14,13 +15,26 @@
 <script>
 export default {
   name: "input-ui",
-  props: {
-    name: String,
-    placeholder: String,
-    required: Boolean,
-    error: String,
-    textarea: Boolean
+  props: [
+    'title',
+    'name',
+    'placeholder',
+    'required',
+    'error',
+    'textarea',
+    'value',
+  ],
+  data() {
+    return {
+      [this.name]: this.name
+    }
   },
+  methods: {
+    onChange(e) {
+      [this.name] = e.target.value;
+      console.log([this.name]);
+    }
+  }
 };
 </script>
 

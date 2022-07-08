@@ -26,6 +26,7 @@ export default {
     },
     handleSelect(item) {
       this.text = item;
+      this.$emit('handleFilter', this.text)
       // this.active = false;
     }
   }
@@ -60,6 +61,7 @@ export default {
   &List {
     position: absolute;
     top: 100%;
+    right: 0;
     z-index: 999;
     margin-top: 10px;
     background: #FFFEFB;
