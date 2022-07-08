@@ -14,10 +14,10 @@ import Card from "@/components/Card";
 import Dropwdown from "@/components/Dropwdown";
 export default {
   name: "Cards-ui",
-  props: ["cards"],
+  props: ["products"],
   data() {
     return {
-      products: this.cards,
+      cards: this.products
     }
   },
   components: {
@@ -29,15 +29,7 @@ export default {
       this.$emit('onRemove', id)
     },
     handleFilter(key) {
-      if (key === "По цене min") {
-        this.products = this.products.sort((prev, curr) => prev.price - curr.price)
-      }
-      if (key === "По цене max") {
-        this.products = this.products.sort((prev, curr) => curr.price - prev.price)
-      }
-      if (key === "По наименованию") {
-        this.products = this.products.sort((prev, curr) => prev.title.localeCompare(curr.title))
-      }
+      this.$emit('handleFilter', key)
     }
   }
 };
@@ -74,6 +66,48 @@ export default {
 .cards-leave-to {
   opacity: 0;
   transform: scale(0);
+}
+
+@media screen and (max-width: 1080px) {
+  .cards {
+    .card {
+      width: 48%;
+    }
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .cardsContainer {
+    width: 100%;
+  }
+  .cards {
+    .card {
+      width: 45%;
+      margin-bottom: 5%;
+    }
+  }
+}
+@media screen and (max-width: 582px) {
+  .cardsContainer {
+    width: 100%;
+  }
+  .cards {
+    .card {
+      max-width: 100%;
+      margin-bottom: 5%;
+    }
+  }
+}
+@media screen and (max-width: 482px) {
+  .cardsContainer {
+    width: 100%;
+  }
+  .cards {
+    .card {
+      width: 100%;
+      margin-bottom: 5%;
+    }
+  }
 }
 </style>
 

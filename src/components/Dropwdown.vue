@@ -1,9 +1,9 @@
 <template>
-  <div class="drop" :class="{ active }" v-on:click="isActive">
+  <div class="drop" :class="{ active }" @click="isActive">
     <span>{{ text }}</span>
     <img src="@/assets/arrow.png" alt="" />
     <ul class="dropList" :class="{ dropListActive: active }">
-      <li v-for="sel of data" :key="sel" v-on:click="handleSelect(sel)">
+      <li v-for="sel of data" :key="sel" @click="handleSelect(sel)">
         {{ sel }}
       </li>
     </ul>

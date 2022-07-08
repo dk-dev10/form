@@ -4,35 +4,39 @@
       {{ title }}
     </span>
     <!-- eslint-disable-next-line -->
-    <input v-if="!textarea" :value="value" @input="$emit(name, $event.target.value)" :name="name" type="text" :id="name"
-      class="input" :placeholder="placeholder" :class="{ inputError: error }" />
-    <textarea v-if="textarea" :value="value" @input="$emit(name, $event.target.value)" :name="name" type="text"
-      :id="name" class="input textarea" :placeholder="placeholder" :class="{ inputError: error }"></textarea>
-    <span v-if="error" class="error">{{ error }}</span>
+    <input v-if="!textarea" :value="name" @input="$emit('update:name', $event.target.value)" :name="name" type="text"
+      :placeholder="placeholder" class="input" :class="{ inputError: error }"
+      @change="validateNumber($event.target.value)" />
+    <textarea v-if="textarea" :value="value" :name="name" type="text" class="input textarea" :placeholder="placeholder"
+      :class="{ inputError: error }"></textarea>
+    <span v-if="error" class="error">{{ error && 'Обязательное поля' }}</span>
   </div>
 </template>
 
 <script>
 export default {
   name: "input-ui",
-  props: [
-    'title',
-    'name',
-    'placeholder',
-    'required',
-    'error',
-    'textarea',
-    'value',
-  ],
-  data() {
-    return {
-      [this.name]: this.name
-    }
+  props: {
+    title: String,
+    name: String,
+    placeholder: String,
+    required: Boolean,
+    error: String,
+    textarea: Boolean
+    //   [
+    //   'title',
+    //   'name',
+    //   'placeholder',
+    //   'required',
+    //   'error',
+    //   'textarea',
+    // ]
   },
   methods: {
-    onChange(e) {
-      [this.name] = e.target.value;
-      console.log([this.name]);
+    validateNumber(value) {
+      if (this.name === 'price') {
+        console.log(value);
+      }
     }
   }
 };

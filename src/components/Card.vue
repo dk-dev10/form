@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="imgBlock">
-      <img v-bind:src="card.picture" alt="s" />
+      <img :src="card.picture" alt="s" />
     </div>
     <div class="cardInfo">
       <h4>{{ card.title }}</h4>
@@ -106,6 +106,12 @@ export default {
 
   img {
     widows: 8px;
+  }
+}
+@media screen and (max-width: 782px) {
+  .remove {
+    opacity: 1;
+    visibility: visible;
   }
 }
 </style>

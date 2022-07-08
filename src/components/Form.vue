@@ -1,12 +1,17 @@
 <template>
   <div class="formBlock">
+    <button class="modal" @click="closeModal">x</button>
     <h1>Добавление товара</h1>
     <div class="formContainer">
       <form @submit.prevent="logg">
-        <Input class="form-input" :value="product" v-model="product" name="product" title="Наименование товара" placeholder="Введите наименование товара" required />
-        <Input class="form-input" :value="description" v-model="description" name="description" title="Описание товара" placeholder="Введите описание товара" textarea />
-        <Input class="form-input" :value="link" v-model="link" name="link" title="Ссылка на изображение товара" placeholder="Введите ссылку" required />
-        <Input class="form-input" :value="price" v-model="price" name="price" title="Цена товара" placeholder="Введите цену" required />
+        <Input class="form-input" v-model:name="product" name="product" title="Наименование товара"
+          placeholder="Введите наименование товара" required :error="errors.price" />
+        <Input class="form-input" v-model:name="description" name="description" title="Описание товара"
+          placeholder="Введите описание товара" textarea="{{true}}" />
+        <Input class="form-input" v-model:name="link" name="link" title="Ссылка на изображение товара"
+          placeholder="Введите ссылку" required :error="errors.price" />
+        <Input class="form-input" v-model:name="price" name="price" title="Цена товара" placeholder="Введите цену"
+          required :error="errors.price" />
         <Button text="Добавить товар" />
       </form>
     </div>
@@ -28,18 +33,46 @@ export default {
       description: '',
       link: '',
       price: '',
+      errors: {
+        price: false,
+        product: false,
+        link: false
+      }
     }
   },
   methods: {
+    closeModal() {
+      this.$emit('closeModal')
+    },
     logg() {
-      const {price, product, description, link} = this;
-      const newCard = {
+      const { price, product, description, link, errors } = this;
+      if (!product.trim()) {
+        errors.price = true
+      }
+      if (!price.trim()) {
+        errors.price = true
+      }
+      if (!link.trim()) {
+        errors.price = true
+      }
+      if (price.trim() && link.trim() && product.trim()) {
+        const newCard = {
           id: Date.now(),
           title: product,
-          description,price,
+          description, price,
           picture: link,
         }
-      this.$emit('addCard', newCard)
+        this.$emit('addCard', newCard);
+        this.product = '';
+        this.description = '';
+        this.link = '';
+        this.price = '';
+        this.errors = {
+          price: false,
+          product: false,
+          link: false
+        }
+      }
     },
   }
 };
@@ -56,6 +89,10 @@ export default {
     color: #3F3F3F;
     margin-bottom: 16px;
   }
+
+  button {
+    margin-top: 12px;
+  }
 }
 
 .formContainer {
@@ -70,5 +107,11 @@ export default {
 
 .form-input {
   margin-bottom: 16px;
+}
+
+.modal {
+  right: 30px;
+  left: auto;
+  z-index: 999;
 }
 </style>

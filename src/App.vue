@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <Form class="form" @addCard="addCard" />
-    <Cards  :cards="cards" @onRemove="onRemove" />
+    <button class="modal" @click="handleModal">+</button>
+    <Form class="form" :class="{ active: form }" @addCard="addCard" @closeModal="closeModal" />
+    <Cards :products="cards" @onRemove="onRemove" @handleFilter="handleFilter" />
   </div>
 </template>
 
@@ -12,6 +13,7 @@ export default {
   name: "App",
   data() {
     return {
+      form: false,
       cards: [
         {
           id: 1,
@@ -39,11 +41,29 @@ export default {
     Cards,
   },
   methods: {
+    handleModal() {
+      this.form = true
+    },
+    closeModal() {
+      this.form = false
+    },
     addCard(item) {
-     this.cards.push(item) 
+      this.cards = [...this.cards, item];
+      this.form = false
     },
     onRemove(i) {
-      this.cards = this.cards.filter(({id}) => id !== i )
+      this.cards = this.cards.filter(({ id }) => id !== i)
+    },
+    handleFilter(key) {
+      if (key === "По цене min") {
+        this.cards = this.cards.sort((prev, curr) => prev.price - curr.price)
+      }
+      if (key === "По цене max") {
+        this.cards = this.cards.sort((prev, curr) => curr.price - prev.price)
+      }
+      if (key === "По наименованию") {
+        this.cards = this.cards.sort((prev, curr) => prev.title.localeCompare(curr.title))
+      }
     }
   }
 };
@@ -69,6 +89,7 @@ body {
   padding: 32px;
   display: flex;
 }
+
 .container .form {
   width: 25%;
 }
@@ -79,5 +100,61 @@ body {
   font-size: 25px;
   font-weight: 800;
   color: #b5b5b5;
+}
+
+.modal {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  opacity: 0;
+  visibility: hidden;
+  background: #fff;
+  padding: 10px;
+}
+
+@media screen and (max-width: 1080px) {
+  .container .form {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .container {
+    padding: 20px;
+  }
+
+  .container .form {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .container .form {
+    width: 100vw;
+    position: absolute;
+    margin: 0 auto;
+    z-index: 100;
+    background: #fff;
+    left: 0;
+    top: 0;
+    height: 99vh;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .container .form.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .container .form .formContainer {
+    max-width: 100%;
+  }
+
+  .modal {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 </style>
